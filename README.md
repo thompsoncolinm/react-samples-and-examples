@@ -32,8 +32,6 @@ The repository is organized into folders, each containing a separate React proje
 ```
 react-samples-and-examples/
 ├── sample1/
-├── sample2/
-├── sample3/
 └── README.md
 ```
 
@@ -42,10 +40,6 @@ Each sample folder contains its own `README.md` with specific instructions on ho
 ## Samples
 
 1. **Sample 1**: Basic React App
-2. **Sample 2**: State and Props
-3. **Sample 3**: Lifecycle Methods
-4. **Sample 4**: Hooks
-5. **Sample 5**: Context API
 
 ## Contributing
 
