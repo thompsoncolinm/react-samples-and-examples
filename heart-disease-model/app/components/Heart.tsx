@@ -24,7 +24,9 @@ export default function Heart({ stage }: HeartProps) {
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime()
-    group.current.rotation.z = Math.sin(t / 1.5) / 20
+    if (group.current) {
+      group.current.rotation.z = Math.sin(t / 1.5) / 20
+    }
   })
 
   return (
