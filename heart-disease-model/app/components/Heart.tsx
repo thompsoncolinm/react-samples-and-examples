@@ -10,7 +10,6 @@ interface HeartProps {
 export default function Heart({ stage }: HeartProps) {
   const group = useRef<THREE.Group>(null)
   const modelPath = `/heart-stage_${stage}.glb`
-  console.log('Loading model from path:', modelPath)
   const { scene, nodes, materials } = useGLTF(modelPath, true, (error) => {
     console.error('Error loading model:', error)
   })
@@ -23,25 +22,32 @@ export default function Heart({ stage }: HeartProps) {
   })
 
   useEffect(() => {
-    console.log('Loaded scene:', scene)
-    console.log('Loaded nodes:', nodes)
-    console.log('Loaded materials:', materials)
-
     const nodeName = `HeartStage${stage}`
     if (nodes && nodes[nodeName]) {
       const geometry = (nodes[nodeName] as THREE.Mesh).geometry
-      console.log('UV Coordinates:', geometry.attributes.uv)
 
       // Verify UVs
       const uvs = geometry.attributes.uv.array
       for (let i = 0; i < uvs.length; i += 2) {
-        console.log(`UV ${i / 2}: (${uvs[i]}, ${uvs[i + 1]})`)
+        // UV coordinates verification
       }
 
       // Check for normal map
       const material = (nodes[nodeName] as THREE.Mesh).material as THREE.MeshStandardMaterial
       if (material.normalMap) {
-        console.log('Normal Map:', material.normalMap)
+        // Normal map verification
+      }
+
+      // Preload other models after the initial model loads
+      if (stage === 1) {
+        useGLTF.preload('/heart-stage_2.glb')
+        useGLTF.preload('/heart-stage_3.glb')
+      } else if (stage === 2) {
+        useGLTF.preload('/heart-stage_1.glb')
+        useGLTF.preload('/heart-stage_3.glb')
+      } else if (stage === 3) {
+        useGLTF.preload('/heart-stage_1.glb')
+        useGLTF.preload('/heart-stage_2.glb')
       }
     } else {
       console.error(`${nodeName} mesh not found in the model`)
@@ -65,7 +71,3 @@ export default function Heart({ stage }: HeartProps) {
     </>
   )
 }
-
-useGLTF.preload('/heart-stage_1.glb')
-useGLTF.preload('/heart-stage_2.glb')
-useGLTF.preload('/heart-stage_3.glb')
