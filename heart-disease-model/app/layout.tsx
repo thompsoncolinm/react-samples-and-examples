@@ -9,7 +9,9 @@ export const metadata = {
   description: 'Interactive 3D visualization of heart disease stages',
 }
 
-export default function RootLayout({ children }) {
+import { ReactNode } from 'react';
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={inter.className}>

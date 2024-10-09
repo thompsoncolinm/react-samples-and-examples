@@ -10,9 +10,12 @@ interface HeartProps {
 export default function Heart({ stage }: HeartProps) {
   const group = useRef<THREE.Group>(null)
   const modelPath = `/heart-stage_${stage}.glb`
-  const { scene, nodes, materials } = useGLTF(modelPath, true, (error) => {
-    console.error('Error loading model:', error)
-  })
+  const { scene, nodes, materials } = useGLTF(modelPath, true)
+  useEffect(() => {
+    if (!scene) {
+      console.error('Error loading model')
+    }
+  }, [scene])
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime()
