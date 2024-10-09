@@ -11,9 +11,9 @@ const Heart = dynamic(() => import('@/components/Heart'), { ssr: false })
 export default function Home() {
   const { stage } = useControls({
     stage: {
-      value: 0,
-      min: 0,
-      max: 2,
+      value: 1,
+      min: 1,
+      max: 3,
       step: 1,
     },
   })
@@ -23,9 +23,9 @@ export default function Home() {
       <h1 className="text-4xl font-bold mb-8">Heart Disease Visualization</h1>
       <div className="w-full h-[600px]">
         <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+          <OrbitControls />
           <Suspense fallback={null}>
             <Heart stage={stage} />
-            <OrbitControls />
           </Suspense>
         </Canvas>
       </div>
